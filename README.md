@@ -1,4 +1,3 @@
-# OIM_project
- final project for OIM
-## Team Member
-Larry Yang
+# OIM project: Space Invador EX [TBD]
+Team Member: Larry Yang
+
