@@ -1,19 +1,27 @@
 import pygame, sys
 from random import choice, randint
- 
+from player import Player
+import config
+
 class Game:
 	def __init__(self):
-		pass
+		player_sprite = Player((screen_width/2,screen_height))
+		self.player = pygame.sprite.GroupSingle(player_sprite)
 	
 	def run(self):
-	    pass
+		self.player.update()
+
+		self.player.draw(screen)
+		self.player.sprite.lasers.draw(screen)
+		
+
 
 
 
 if __name__ == '__main__':
 	pygame.init()
-	screen_width = 900
-	screen_height = 600
+	screen_width = config.screen_width
+	screen_height = config.screen_height
 	screen = pygame.display.set_mode((screen_width,screen_height))
 	clock = pygame.time.Clock()
 	game = Game()
