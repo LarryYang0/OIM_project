@@ -9,11 +9,11 @@ class Player (pygame.sprite.Sprite): # Inherited from pygame
         self.rect = self.image.get_rect(midbottom = pos)
         self.speed = 5
         self.max_x_constraint = config.screen_width
+
+        self.lasers = pygame.sprite.Group()
         self.laser_cd = 600
         self.laser_ready = True
         self.laser_counter = 0
-
-        self.lasers = pygame.sprite.Group()
     
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -42,7 +42,7 @@ class Player (pygame.sprite.Sprite): # Inherited from pygame
             self.rect.right = self.max_x_constraint
     
     def shoot_laser(self):
-        self.lasers.add(Laser(self.rect.center))
+        self.lasers.add(Laser(self.rect.center, config.player_laser_speed))
 
     def update(self):
         self.get_input()
