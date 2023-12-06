@@ -1,4 +1,5 @@
-import pygame, sys
+import pygame
+import sys
 from random import choice, randint
 from player import Player
 from alien import Alien, Bonus
