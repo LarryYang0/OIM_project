@@ -8,6 +8,7 @@ class Alien(pygame.sprite.Sprite):
         file_path = 'image/' + alien_type +'.png'
         self.image = pygame.image.load(file_path).convert_alpha()
         self.rect = self.image.get_rect(topleft = (x, y))
+        self.score = config.alien_score.get(alien_type, 0)
     
     def update(self, speed) -> None:
         self.rect.x += speed

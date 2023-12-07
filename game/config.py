@@ -9,3 +9,6 @@ player_laser_speed = -8
 alien_default_speed = 1
 alien_default_down = 2
 alien_laser_speed = 6
+
+# alien score
+alien_score = {'red': 100, 'green': 200, 'yellow': 300}
