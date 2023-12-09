@@ -80,14 +80,45 @@ class Game:
                     alien = Alien("red", x, y)
                 self.aliens.add(alien)
 
+    def calculate_new_speed(self, reference_point):
+        # Calculate distance based on the current direction
+        if self.aliens_speed > 0:  # if moving right
+            distance = config.screen_width - reference_point
+        else:  # if moving left
+            distance = reference_point
+
+        time_to_cross = config.alien_time_to_cross
+        new_speed = distance / time_to_cross
+        print(new_speed)
+        return abs(new_speed)
+
     def alien_pos_checker(self):
+        rightmost = max((alien.rect.right for alien in self.aliens.sprites()), default=config.screen_width)
+        leftmost = min((alien.rect.left for alien in self.aliens.sprites()), default=0)
+
+        # Check if aliens hit the screen edges and adjust direction and move down
+        edge_hit = False
         for alien in self.aliens.sprites():
             if alien.rect.right >= config.screen_width:
-                self.aliens_speed = -config.alien_default_speed
+                self.aliens_speed = -abs(self.aliens_speed)  # Change direction to left
                 self.alien_movedown(config.alien_default_down)
-            if alien.rect.left <= 0:
-                self.aliens_speed = config.alien_default_speed
+                edge_hit = True
+                break
+            elif alien.rect.left <= 0:
+                self.aliens_speed = abs(self.aliens_speed)  # Change direction to right
                 self.alien_movedown(config.alien_default_down)
+                edge_hit = True
+                break
+
+        # Recalculate speed after moving down and changing direction
+        if edge_hit:
+            if self.aliens_speed > 0:  # if moving right
+                distance = config.screen_width - rightmost
+            else:  # if moving left
+                distance = leftmost
+            speed_increment = (distance / config.alien_time_to_cross) - config.alien_default_speed
+            self.aliens_speed += speed_increment if self.aliens_speed > 0 else -speed_increment
+        
 
     def alien_movedown(self, y_distance):
         if self.aliens:
